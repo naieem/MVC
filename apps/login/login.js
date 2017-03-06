@@ -25,7 +25,9 @@
         if(e.target.id == "hello"){
 //            console.log(e);
             alert(e.target.innerText);
+            document.location.assign('#/clickedevent');
         }
+
     }, false);
 
 })();
