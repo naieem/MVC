@@ -46,9 +46,10 @@ var library = (function () {
             xhttp.open("GET", "view/" + view + ".view.html", true);
             xhttp.send();
             window.active = controller;
-            window.parse;
-            parser.parse();
-            parser.directive();
+            //parser.directive();
+//            parser.parse();
+            parser.parseDom();
+
         }
         //        controller();
     }

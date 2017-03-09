@@ -3,7 +3,8 @@ var parser = (function () {
 
     return {
         parse: parse,
-        directive: parseDirective
+        directive: parseDirective,
+        parseDom: parseDom
     }
 
     function parse() {
@@ -30,6 +31,33 @@ var parser = (function () {
                 console.log(result);
             }
         }, 100);
+    }
+
+    function parseDom() {
+        var dom = document.body;
+        var child = dom.childNodes;
+        var domChild = [];
+        for (var i = 0; i < child.length; i++) {
+            if (child[i].nodeName != "#text" && child[i].nodeName != "#comment" && child[i].nodeName != "SCRIPT")
+                domChild.push(child[i]);
+        }
+        console.log(domChild);
+        parseChildDom(domChild);
+    }
+
+    function parseChildDom(domChild) {
+        //console.log(domChild.length);
+        if (domChild.length > 0) {
+            for (var i = 0; i < domChild.length; i++) {
+                //            if (domChild[i].childNodes != 0) {
+                //                parseChildDom(domChild[i].childNodes);
+                //                console.log("no childnodes");
+                //            } else
+                console.log(domChild[i].children.length);
+                console.log(domChild[i].children);
+                parseChildDom(domChild[i].children);
+            }
+        }
     }
 
     function render(skeleton, data) {
