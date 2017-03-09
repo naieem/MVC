@@ -1,38 +1,47 @@
-(function () {
+var parser = (function () {
     "user strict";
-//    var layout = document.getElementsByTagName("layout");
-//    console.log(layout.length);
-//    for (var i = 0; i < layout.length; i++) {
-//        //        console.log(layout[i]);
-//        //        layout[i].innerHTML="sdfds";
-//        var appName = layout[i].getAttribute("app");
-//        var context = layout[i];
-//        var script = document.createElement('script');
-//        script.src = "apps/" + appName + "/" + appName + ".js";
-//        script.onload = function () {
-//            console.log(appName, "loaded");
-//            var xhttp = new XMLHttpRequest();
-//            xhttp.onreadystatechange = function () {
-//                //                console.log(context);
-//                if (this.readyState == 4 && this.status == 200) {
-//                    context.innerHTML = this.responseText;
-//                }
-//            };
-//            xhttp.open("GET", "apps/" + appName + "/" + appName + ".html", true);
-//            xhttp.send();
-//        };
-//        document.head.appendChild(script); //or something of the likes
-//    }
-    //    location.hash === "#somecoolfeature";
 
-    //    console.log(location.hash);
-//    window.onhashchange = function () {
-//        console.log(location.hash);
-//    }
+    return {
+        parse: parse,
+        directive: parseDirective
+    }
 
-    //    window.onhashchange = locationHashChanged;
-    //    console.log(directive);
-    //    directive.add("hello",function(){
-    //      console.log("hello added");
-    //    })
+    function parse() {
+        setTimeout(function () {
+            var doc = document.body.innerHTML;
+            var res = doc.replace(/{[a-z A-Z]+}/, function (x) {
+                x = x.slice(1, x.length - 1);
+                return controller[window.active][x];
+            });
+            document.body.innerHTML = res;
+        }, 10);
+    }
+
+    function parseDirective() {
+        setTimeout(function () {
+            var repeatElement = document.querySelectorAll('[go-repeat]');
+            for (var i = 0; i < repeatElement.length; i++) {
+                var skeleton = repeatElement[i].outerHTML;
+                var attr = repeatElement[i].getAttribute("go-repeat");
+                var data = controller[window.active][attr];
+                //console.log(data);
+                var result = render(skeleton, data);
+                repeatElement[i].innerHTML = result;
+                console.log(result);
+            }
+        }, 100);
+    }
+
+    function render(skeleton, data) {
+        var text = "";
+        for (var i = 0; i < data.length; i++) {
+            text += skeleton.replace(/{[a-z A-Z]+}/g, function (x) {
+                x = x.slice(1, x.length - 1);
+                return data[i][x];
+            });
+        }
+        return text;
+
+    }
+
 })();

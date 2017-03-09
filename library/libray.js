@@ -6,11 +6,11 @@ var library = (function () {
     /* Initial loading of states and route */
     for (var i = 0; i < route.length; i++) {
         routes[route[i].state] = route[i];
-        generateController(route[i].controllerAs, route[i].controller);
+        //        generateController(route[i].controllerAs, route[i].controller);
         if (route[i].default) {
             document.location.assign('#/' + route[i].url);
             load(route[i].state, route[i].controller);
-            window.action = controller[route[i].controllerAs];
+            //            window.action = controller[route[i].controllerAs];
             //            var hello = new Controller();
             //            hello.bind(obj);
             //            window.action = hello;
@@ -45,6 +45,10 @@ var library = (function () {
             };
             xhttp.open("GET", "view/" + view + ".view.html", true);
             xhttp.send();
+            window.active = controller;
+            window.parse;
+            parser.parse();
+            parser.directive();
         }
         //        controller();
     }
@@ -53,13 +57,24 @@ var library = (function () {
     //    function Controller() {
     //        this.name = "hello world";
     //    }
-    function generateController(name, ctrl) {
-        //        ctrl = new Controller();
-        controller[name] = ctrl;
-        //        ctrl.name="naieem";
-        //        console.log(ctrl);
-        //        window.ctrl = ctrl;
+    //    function generateController(name, ctrl) {
+    //        //        ctrl = new Controller();
+    //        controller[name] = ctrl;
+    //        //        ctrl.name="naieem";
+    //        //        console.log(ctrl);
+    //        //        window.ctrl = ctrl;
+    //    }
+})(window);
+window.controller = [];
+var Controller = (function () {
+    "use strict";
+    return {
+        add: add
     }
-    console.log(controller);
+
+    function add(name, obj) {
+        obj.name = name;
+        window.controller[name] = obj;
+    }
 
 })();
