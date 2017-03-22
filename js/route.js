@@ -5,15 +5,12 @@ var route = (function () {
         state: "home",
         default: true,
         url: "",
-        controller: "homeController",
-        controllerAs: "home"
-        //templateUrl:""
+        controller: "home"
     }, {
         state: "login",
         default: false,
         url: "login",
-        controller: "loginController",
-        controllerAs: "login"
+        controller: "login"
     }];
     return router;
 

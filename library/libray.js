@@ -1,4 +1,4 @@
-var library = (function () {
+var library = (function() {
     "use strict";
     var routes = [];
     var controller = [];
@@ -21,7 +21,7 @@ var library = (function () {
         }
     }
     /* On Hashchange action */
-    window.onhashchange = function () {
+    window.onhashchange = function() {
         var str = location.hash;
         var res = str.slice(2);
         if (res == '')
@@ -36,19 +36,27 @@ var library = (function () {
         var layout = document.getElementsByTagName("view-content");
         for (var i = 0; i < layout.length; i++) {
             var context = layout[i];
-            var script = document.createElement('script');
+            // var script = document.createElement('script');
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+            console.log(controller);
+            xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    //var html=HtmlCompiler.compile(this.responseText);
+                    // console.log(this);
                     context.innerHTML = this.responseText;
+                    setTimeout(function() {
+                        var html = HtmlCompiler.compile(controller);
+                        console.log(html);
+                        context.innerHTML=html;
+                    }, 100);
                 }
             };
             xhttp.open("GET", "view/" + view + ".view.html", true);
             xhttp.send();
-            window.active = controller;
+            // window.active = controller;
             //parser.directive();
-//            parser.parse();
-            parser.parseDom();
+            //            parser.parse();
+            //            parser.parseDom();
 
         }
         //        controller();
@@ -66,16 +74,16 @@ var library = (function () {
     //        //        window.ctrl = ctrl;
     //    }
 })(window);
-window.controller = [];
-var Controller = (function () {
-    "use strict";
-    return {
-        add: add
-    }
-
-    function add(name, obj) {
-        obj.name = name;
-        window.controller[name] = obj;
-    }
-
-})();
+// window.controller = [];
+//var Controller = (function () {
+//    "use strict";
+//    return {
+//        add: add
+//    }
+//
+//    function add(name, obj) {
+//        obj.name = name;
+//        window.controller[name] = obj;
+//    }
+//
+//})();
