@@ -53,8 +53,8 @@ var parser = (function () {
                 //                parseChildDom(domChild[i].childNodes);
                 //                console.log("no childnodes");
                 //            } else
-                console.log(domChild[i].children.length);
-                console.log(domChild[i].children);
+                //console.log(domChild[i].children.length);
+                //console.log(domChild[i].children);
                 parseChildDom(domChild[i].children);
             }
         }
